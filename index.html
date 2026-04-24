@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>かんたん請求書メーカー | 無料で請求書をすぐ作成・印刷</title>
+  <meta name="description" content="フリーランス・副業者向けの無料請求書メーカー。入力するだけで請求書が完成。PDF保存もかんたん。" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== ヘッダー ===== -->
+  <header class="site-header">
+    <h1>📄 かんたん請求書メーカー</h1>
+    <p>フリーランス・副業者向け｜無料・登録不要</p>
+  </header>
+
+  <!-- ===== 広告枠（Google AdSense をここに貼る） ===== -->
+  <!--
+  <div class="ad-banner">
+    <ins class="adsbygoogle" ...></ins>
+  </div>
+  -->
+  <div class="ad-placeholder">＜広告スペース：Google AdSense コードをここに貼り付け＞</div>
+
+  <main class="container">
+    <div class="layout">
+
+      <!-- ===== 左カラム：入力フォーム ===== -->
+      <section class="form-panel">
+        <h2>① 情報を入力</h2>
+
+        <fieldset>
+          <legend>発行者（あなた）</legend>
+          <label>氏名 / 屋号
+            <input id="senderName" type="text" placeholder="山田 太郎" />
+          </label>
+          <label>住所
+            <input id="senderAddress" type="text" placeholder="東京都渋谷区〇〇1-2-3" />
+          </label>
+          <label>電話番号
+            <input id="senderPhone" type="text" placeholder="090-0000-0000" />
+          </label>
+          <label>メールアドレス
+            <input id="senderEmail" type="email" placeholder="you@example.com" />
+          </label>
+          <label>振込先口座
+            <input id="bankInfo" type="text" placeholder="〇〇銀行 〇〇支店 普通 1234567" />
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>請求先（クライアント）</legend>
+          <label>会社名 / 氏名
+            <input id="clientName" type="text" placeholder="株式会社〇〇" />
+          </label>
+          <label>担当者名
+            <input id="clientPerson" type="text" placeholder="鈴木 様" />
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>請求情報</legend>
+          <label>請求書番号
+            <input id="invoiceNo" type="text" placeholder="INV-2026-001" />
+          </label>
+          <label>発行日
+            <input id="issueDate" type="date" />
+          </label>
+          <label>支払期限
+            <input id="dueDate" type="date" />
+          </label>
+          <label>消費税率
+            <select id="taxRate">
+              <option value="0.10">10%</option>
+              <option value="0.08">8%（軽減税率）</option>
+              <option value="0">非課税</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>明細</legend>
+          <table class="items-table" id="itemsTable">
+            <thead>
+              <tr>
+                <th>品名・作業内容</th>
+                <th>数量</th>
+                <th>単価（円）</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="itemsBody">
+              <!-- 行は JavaScript で追加 -->
+            </tbody>
+          </table>
+          <button type="button" id="addRowBtn" class="btn-secondary">＋ 行を追加</button>
+        </fieldset>
+
+        <button type="button" id="printBtn" class="btn-primary">🖨️ 印刷 / PDF保存</button>
+      </section>
+
+      <!-- ===== 右カラム：プレビュー ===== -->
+      <section class="preview-panel" id="previewPanel">
+        <h2 class="no-print">② プレビュー（リアルタイム更新）</h2>
+
+        <div class="invoice" id="invoicePreview">
+          <div class="invoice-header">
+            <h2>請 求 書</h2>
+            <table class="meta-table">
+              <tr><td>請求書番号</td><td id="p-invoiceNo">—</td></tr>
+              <tr><td>発行日</td><td id="p-issueDate">—</td></tr>
+              <tr><td>支払期限</td><td id="p-dueDate">—</td></tr>
+            </table>
+          </div>
+
+          <div class="invoice-parties">
+            <div class="client-block">
+              <p id="p-clientName" class="client-name">—</p>
+              <p id="p-clientPerson">—</p>
+              <p>御中</p>
+            </div>
+            <div class="sender-block">
+              <p id="p-senderName" class="sender-name">—</p>
+              <p id="p-senderAddress">—</p>
+              <p id="p-senderPhone">—</p>
+              <p id="p-senderEmail">—</p>
+            </div>
+          </div>
+
+          <div class="total-box">
+            <span>ご請求金額</span>
+            <span id="p-grandTotal" class="grand-total">¥0</span>
+          </div>
+
+          <table class="invoice-items">
+            <thead>
+              <tr>
+                <th>品名・作業内容</th>
+                <th>数量</th>
+                <th>単価</th>
+                <th>金額</th>
+              </tr>
+            </thead>
+            <tbody id="p-itemsBody"></tbody>
+          </table>
+
+          <div class="subtotals">
+            <div class="subtotal-row">
+              <span>小計</span>
+              <span id="p-subtotal">¥0</span>
+            </div>
+            <div class="subtotal-row">
+              <span id="p-taxLabel">消費税（10%）</span>
+              <span id="p-tax">¥0</span>
+            </div>
+            <div class="subtotal-row total-row">
+              <span>合計</span>
+              <span id="p-total">¥0</span>
+            </div>
+          </div>
+
+          <div class="bank-section">
+            <p class="bank-label">お振込先</p>
+            <p id="p-bankInfo">—</p>
+          </div>
+
+          <p class="invoice-note">※ 上記の通りご請求申し上げます。</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===== アフィリエイトリンク（収益化ポイント②） ===== -->
+    <aside class="affiliate-section no-print">
+      <h3>💡 請求書の管理をもっとかんたんに</h3>
+      <div class="affiliate-cards">
+        <div class="affiliate-card">
+          <strong>freee 会計</strong>
+          <p>確定申告まで自動化。フリーランスに人気No.1の会計ソフト。</p>
+          <!-- アフィリエイトURLに差し替えてください -->
+          <a href="#" class="btn-affiliate">無料で試す →</a>
+        </div>
+        <div class="affiliate-card">
+          <strong>マネーフォワード クラウド</strong>
+          <p>請求書・見積書・経費を一元管理。インボイス対応済み。</p>
+          <a href="#" class="btn-affiliate">無料で試す →</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== プロ版アップセル（収益化ポイント③） ===== -->
+    <aside class="upsell-section no-print">
+      <h3>🚀 もっと便利に使いたい方へ（プロ版・近日公開）</h3>
+      <ul>
+        <li>✅ 会社ロゴを請求書に追加</li>
+        <li>✅ テンプレートを保存・再利用</li>
+        <li>✅ 過去の請求書を一覧管理</li>
+      </ul>
+      <p>早期登録で無料プレゼント！</p>
+      <div class="email-capture">
+        <input type="email" id="proEmail" placeholder="メールアドレスを入力" />
+        <button type="button" id="proSignupBtn" class="btn-primary">プロ版の案内を受け取る</button>
+      </div>
+      <p id="signupMessage" class="signup-message"></p>
+    </aside>
+  </main>
+
+  <footer class="site-footer no-print">
+    <p>© 2026 かんたん請求書メーカー | 無料ツール</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
