@@ -536,7 +536,7 @@ input:focus, select:focus {
   margin-top: 24px;
 }
 .related-tools h3 { font-size: 1rem; margin-bottom: 16px; color: #2d3748; }
-.related-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 @media (max-width: 800px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 500px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
 .related-card {
