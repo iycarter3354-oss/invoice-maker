@@ -525,3 +525,25 @@ input:focus, select:focus {
     font-size: 18pt;
   }
 }
+
+
+/* ===== 関連ツール ===== */
+.related-tools {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-top: 24px;
+}
+.related-tools h3 { font-size: 1rem; margin-bottom: 16px; color: #2d3748; }
+.related-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+@media (max-width: 800px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 500px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
+.related-card {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 12px 8px; border: 1px solid #e2e8f0; border-radius: 8px;
+  text-decoration: none; color: #2b6cb0; font-size: 0.82rem; font-weight: bold;
+  text-align: center; transition: background 0.2s, border-color 0.2s;
+}
+.related-card:hover { background: #ebf8ff; border-color: #bee3f8; }
+.related-icon { font-size: 1.5rem; }
