@@ -481,9 +481,14 @@ input:focus, select:focus {
    .no-print クラスの要素は印刷に出ない
    =================================================== */
 @media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
   body {
     background: #fff;
     font-size: 11pt;
+    padding: 10mm;
   }
 
   .no-print,
