@@ -532,6 +532,12 @@ input:focus, select:focus {
 }
 
 
+/* ===== note 関連記事 ===== */
+.note-section { background:#fff; border-radius:12px; padding:20px 24px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-top:24px; }
+.note-section h3 { font-size:1rem; margin-bottom:12px; color:#2d3748; }
+.note-card { display:block; padding:14px 16px; background:#f7fafc; border:1px solid #e2e8f0; border-left:4px solid #41c9b4; border-radius:8px; text-decoration:none; color:#2d3748; font-size:0.9rem; font-weight:bold; transition:background 0.2s; }
+.note-card:hover { background:#ebf8ff; }
+
 /* ===== 関連ツール ===== */
 .related-tools {
   background: #fff;
