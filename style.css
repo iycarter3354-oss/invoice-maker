@@ -33,16 +33,6 @@ body {
   opacity: 0.85;
 }
 
-/* ===== 広告プレースホルダー ===== */
-.ad-placeholder {
-  background: #e2e8f0;
-  color: #718096;
-  text-align: center;
-  padding: 12px;
-  font-size: 0.8rem;
-  border-bottom: 1px solid #cbd5e0;
-}
-
 /* ===== レイアウト ===== */
 .container {
   max-width: 1200px;
@@ -493,7 +483,6 @@ input:focus, select:focus {
 
   .no-print,
   .site-header,
-  .ad-placeholder,
   .form-panel,
   .affiliate-section,
   .upsell-section,
